@@ -43,14 +43,33 @@ Jenkins is explicitly configured to **listen on port 8000**, satisfying the requ
 ## 3. Puppet Installation Steps (Ubuntu 22.04)
 
 ```bash
-# Update package index
-sudo apt update
+Puppet Installation Steps (Ubuntu 22.04 – Jammy)
 
-# Install Puppet Agent
-sudo apt install -y puppet
+1. Update the system package index:
+   sudo apt-get update
 
-# Verify installation
-puppet --version
+2. Install required dependencies:
+   sudo apt-get install -y wget ca-certificates gnupg lsb-release
+
+3. Download and install the official Puppet 7 repository package:
+   wget https://apt.puppet.com/puppet7-release-jammy.deb
+   sudo dpkg -i puppet7-release-jammy.deb
+
+4. Refresh the package index after adding the Puppet repository:
+   sudo apt-get update
+
+5. Install the Puppet Agent:
+   sudo apt-get install -y puppet-agent
+
+6. Add Puppet binaries to the system PATH:
+   export PATH=$PATH:/opt/puppetlabs/bin
+
+7. Verify the installation:
+   puppet --version
+
+8. (Optional) Start and enable the Puppet service:
+   sudo systemctl start puppet
+   sudo systemctl enable puppet
 ```
 
 Once Puppet is installed, no additional Ruby libraries, Forge modules, or plugins are required.
@@ -135,7 +154,49 @@ control-repo/
 
 ***
 
-## 8. Required Question Answers
+## 7. Project Execution Step
+
+Apply Puppet Configuration (Execution Step)
+
+After installing Puppet and ensuring all manifests, modules, and Hiera data are in place, apply the Puppet configuration using the following command:
+
+sudo /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp \
+  --environment production \
+  --hiera_config /etc/puppetlabs/code/environments/production/hiera.yaml \
+  --modulepath /etc/puppetlabs/code/environments/production/site-modules
+
+This command applies the production environment configuration by:
+- Executing the main site manifest (site.pp)
+- Using the production environment
+- Loading Hiera data from hiera.yaml
+- Resolving custom modules from the site-modules directory
+
+## 8. VERIFICATION STEPS
+
+1. Verify Jenkins service status:
+   sudo systemctl status jenkins
+   (Service should be shown as "active (running)")
+
+2. Confirm Jenkins is listening on port 8080:
+   sudo ss -tulpn | grep 8080
+   or
+   sudo netstat -tulpn | grep 8080
+
+3. Access Jenkins via web browser:
+   http://<server-ip>:8080
+
+4. Retrieve the initial Jenkins admin password:
+   sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+5. Log in to the Jenkins UI using the initial admin password to complete setup.
+
+RESULT
+
+Jenkins is successfully installed, running, and accessible via the web interface.
+
+***
+
+## 9. Required Question Answers
 
 ### a) Most difficult hurdle
 
