@@ -1,0 +1,30 @@
+# control-repo/data/common.yaml
+
+# REQUIRED: Jenkins must listen on port 8000
+profile::jenkins::http_port: 8000
+
+# Optional firewall management (set false if you don't want UFW managed)
+profile::jenkins::manage_ufw: true
+
+# OS packages (change these without touching manifests)
+profile::jenkins::prereq_packages:
+  - "ca-certificates"
+  - "wget"
+  - "fontconfig"
+  - "gnupg"
+
+profile::jenkins::java_package: "openjdk-21-jre-headless"
+
+# Jenkins APT repo + key (2026 key per Jenkins announcement) [2](https://stackoverflow.com/questions/68199970/change-jenkins-port)
+profile::jenkins::keyring_dir: "/etc/apt/keyrings"
+profile::jenkins::repo_key_path: "/etc/apt/keyrings/jenkins-keyring.asc"
+profile::jenkins::repo_key_url: "https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key"
+profile::jenkins::repo_base_url: "https://pkg.jenkins.io/debian-stable"
+profile::jenkins::repo_list_path: "/etc/apt/sources.list.d/jenkins.list"
+
+# systemd drop-in override (recommended by Jenkins docs) [1](https://thelinuxcode.com/install-configure-jenkins-ubuntu/)
+profile::jenkins::systemd_dropin_dir: "/etc/systemd/system/jenkins.service.d"
+profile::jenkins::systemd_override_path: "/etc/systemd/system/jenkins.service.d/override.conf"
+
+# Optional: bind address (0.0.0.0 = all interfaces)
+profile::jenkins::listen_address: "0.0.0.0"

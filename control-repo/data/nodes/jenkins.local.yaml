@@ -1,0 +1,3 @@
+# control-repo/data/nodes/jenkins.local.yaml
+# Example node override (keep same port in this sample)
+profile::jenkins::http_port: 8000
