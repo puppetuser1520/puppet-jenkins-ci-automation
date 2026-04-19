@@ -224,147 +224,151 @@ Jenkins is successfully installed, running, and accessible via the web interface
 
 ### a) Most difficult hurdle
 
-1) Jenkins Java Version Compatibility Changed
-What happened
+### 1) **Jenkins Java Version Compatibility Changed**
 
-Jenkins started successfully installing, but failed during service startup.
-Systemd logs showed:
-Java 17 ... is older than the minimum required version (Java 21)
+**What happened**
 
-Why this is a hurdle
+*   Jenkins started successfully installing, but failed during service startup.
+*   Systemd logs showed:
+        Java 17 ... is older than the minimum required version (Java 21)
 
-Jenkins LTS recently raised the minimum Java requirement.
-The Puppet code was technically correct, but relied on an outdated assumption about Jenkins Java support.
+**Why this is a hurdle**
 
-Learning
+*   Jenkins LTS **recently raised the minimum Java requirement**.
+*   The Puppet code was technically correct, but relied on an **outdated assumption** about Jenkins Java support.
 
-Infrastructure automation must track application lifecycle changes, not just OS compatibility.
-Puppet did its job; the failure was application‑level, not configuration‑level.
+**Learning**
 
+*   Infrastructure automation must track **application lifecycle changes**, not just OS compatibility.
+*   Puppet did its job; the failure was **application‑level**, not configuration‑level.
 
-2) puppet apply Does Not Auto‑Determine Node Identity
-What happened
+***
 
-Hiera node‑specific data didn’t resolve until --node_name_value was explicitly provided.
+### 2) **`puppet apply` Does Not Auto‑Determine Node Identity**
 
-Why this is a hurdle
+**What happened**
 
-When running puppet apply, there is:
+*   Hiera node‑specific data didn’t resolve until `--node_name_value` was explicitly provided.
 
-no certificate
-no real certname
+**Why this is a hurdle**
 
+*   When running `puppet apply`, there is:
+    *   no certificate
+    *   no real `certname`
+*   `%{trusted.certname}` is undefined unless manually set.
 
-%{trusted.certname} is undefined unless manually set.
+**Learning**
 
-Learning
+*   Node identity must be **explicitly simulated** when using `puppet apply`.
+*   This differs from Puppet Server behavior and can confuse first‑time users.
 
-Node identity must be explicitly simulated when using puppet apply.
-This differs from Puppet Server behavior and can confuse first‑time users.
+***
 
+### 3) **Systemd Back‑off Masked Subsequent Fixes**
 
-3) Systemd Back‑off Masked Subsequent Fixes
-What happened
+**What happened**
 
-Multiple failed Jenkins starts caused systemd to stop retrying.
-Even after correcting configuration, Jenkins would not restart.
+*   Multiple failed Jenkins starts caused systemd to stop retrying.
+*   Even after correcting configuration, Jenkins would not restart.
 
-Why this is a hurdle
+**Why this is a hurdle**
 
-Systemd’s restart back‑off is stateful.
-Puppet cannot automatically reset failed services.
+*   Systemd’s restart back‑off is **stateful**.
+*   Puppet cannot automatically reset failed services.
 
-Mitigation Required
+**Mitigation Required**
+
+```bash
 sudo systemctl reset-failed jenkins
-Learning
+```
 
-Application service managers can introduce hidden operational states that configuration tools don’t reset automatically.
+**Learning**
 
+*   Application service managers can introduce **hidden operational states** that configuration tools don’t reset automatically.
 
-4) Modern APT Key Handling Is More Complex
-What happened
+***
 
-Jenkins repository now requires:
+### 4) **Modern APT Key Handling Is More Complex**
 
-dedicated keyring directory
-signed-by= configuration
+**What happened**
 
+*   Jenkins repository now requires:
+    *   dedicated keyring directory
+    *   `signed-by=` configuration
+*   Traditional `apt-key` approach is deprecated.
 
-Traditional apt-key approach is deprecated.
+**Why this is a hurdle**
 
-Why this is a hurdle
+*   Older tutorials and automation examples **no longer work**.
+*   Requires additional Puppet resources and ordering.
 
-Older tutorials and automation examples no longer work.
-Requires additional Puppet resources and ordering.
+**Learning**
 
-Learning
+*   OS‑level security hardening directly increases IaC complexity.
+*   Automation must evolve with platform security standards.
 
-OS‑level security hardening directly increases IaC complexity.
-Automation must evolve with platform security standards.
+***
 
+### 5) **Order and Notification Chains Are Critical**
 
-5) Order and Notification Chains Are Critical
-What happened
+**What happened**
 
-Jenkins startup depends on this precise sequence:
+*   Jenkins startup depends on this precise sequence:
+    1.  Java installed
+    2.  Jenkins repo added
+    3.  Apt update triggered
+    4.  Jenkins installed
+    5.  systemd override written
+    6.  daemon reload
+    7.  service restart
 
-Java installed
-Jenkins repo added
-Apt update triggered
-Jenkins installed
-systemd override written
-daemon reload
-service restart
+**Why this is a hurdle**
 
+*   Any missing `require` / `notify` link:
+    *   breaks idempotence
+    *   causes race conditions
 
+**Learning**
 
-Why this is a hurdle
+*   Declarative tools still require **careful dependency modeling**.
+*   Puppet gives control—but only if dependency chains are explicitly defined.
 
-Any missing require / notify link:
+***
 
-breaks idempotence
-causes race conditions
+### 6) **Port Configuration Requires systemd Overrides**
 
+**What happened**
 
+*   `/etc/default/jenkins` was ignored by the package.
+*   Jenkins picked up port changes only via systemd drop‑in.
 
-Learning
+**Why this is a hurdle**
 
-Declarative tools still require careful dependency modeling.
-Puppet gives control—but only if dependency chains are explicitly defined.
+*   Package behavior changed silently.
+*   Configuration files once considered canonical are no longer respected.
 
+**Learning**
 
-6) Port Configuration Requires systemd Overrides
-What happened
+*   OS and vendor packaging decisions can invalidate legacy configuration patterns.
+*   Using systemd drop‑ins is now the **correct, future‑proof approach**.
 
-/etc/default/jenkins was ignored by the package.
-Jenkins picked up port changes only via systemd drop‑in.
+***
 
-Why this is a hurdle
+### 7) **Separation of Roles & Profiles Requires Discipline**
 
-Package behavior changed silently.
-Configuration files once considered canonical are no longer respected.
+**What happened**
 
-Learning
+*   It’s tempting to place resources directly inside roles or site.pp.
 
-OS and vendor packaging decisions can invalidate legacy configuration patterns.
-Using systemd drop‑ins is now the correct, future‑proof approach.
+**Why this is a hurdle**
 
+*   Violates Puppet best practices.
+*   Leads to unscalable, tightly coupled code.
 
-7) Separation of Roles & Profiles Requires Discipline
-What happened
+**Learning**
 
-It’s tempting to place resources directly inside roles or site.pp.
-
-Why this is a hurdle
-
-Violates Puppet best practices.
-Leads to unscalable, tightly coupled code.
-
-Learning
-
-Roles/profiles adds initial structure overhead, but pays off in clarity and scalability.
-Correct separation makes troubleshooting significantly easier.
-
+*   Roles/profiles adds **initial structure overhead**, but pays off in clarity and scalability.
+*   Correct separation makes troubleshooting significantly easier.
 
 ***
 
