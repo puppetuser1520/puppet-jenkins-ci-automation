@@ -425,7 +425,7 @@ Official Puppet documentation on idempotency:
 
 Primary sources used:
 
-### 9.3.1. **Jenkins official documentation**
+* **Jenkins official documentation**
 
     *   Jenkins Java Version Compatibility Changed
         <https://www.jenkins.io/doc/book/platform-information/support-policy-java/> [\[jenkins.io\]](https://www.jenkins.io/doc/book/platform-information/support-policy-java)
@@ -434,7 +434,7 @@ Primary sources used:
     *   repository key rotation blog  
         <https://www.jenkins.io/blog/2025/12/23/repository-signing-keys-changing/> [\[jenkins.io\]](https://www.jenkins.io/blog/2025/12/23/repository-signing-keys-changing/)
 
-### 9.3.2. **Puppet official documentation**
+* **Puppet official documentation**
     *   Idempotency concepts  
         <https://help.puppet.com/pe/current/topics/understanding_idempotency.htm> [\[help.puppet.com\]]( https://help.puppet.com/pe/current/topics/understanding_idempotency.htm)
 
