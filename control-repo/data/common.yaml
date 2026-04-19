@@ -10,7 +10,6 @@ profile::jenkins::manage_ufw: true
 profile::jenkins::prereq_packages:
   - "ca-certificates"
   - "wget"
-  - "curl"
   - "fontconfig"
   - "gnupg"
 
