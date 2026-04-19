@@ -160,12 +160,21 @@ Apply Puppet Configuration (Execution Step)
 
 After installing Puppet and ensuring all manifests, modules, and Hiera data are in place, apply the Puppet configuration using the following command:
 
+### a) Cloning the project repository into the local system
+
 ```bash
-### Copy the Project source code into puppet standard code path
+git clone https://github.com/puppetuser1520/puppet-jenkins-ci-automation.git
+```
+![Please refer the execution result here](docs/images/gitclone_puppet_project_result.png)
 
-sudo cp -r <project path> /etc/puppetlabs/code/environments/production/
+### b) Copy the Cloned Project into puppet standard code path
 
-### Execute the puppet apply command
+```bash
+sudo cp -r $HOME/puppet-jenkins-ci-automation/control-repo /etc/puppetlabs/code/environments/production/
+```
+### c) Execute the puppet apply command 
+
+```bash
 sudo /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp \
   --environment production \
   --hiera_config /etc/puppetlabs/code/environments/production/hiera.yaml \
