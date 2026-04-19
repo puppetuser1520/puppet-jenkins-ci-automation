@@ -110,13 +110,13 @@ control-repo/
 ## 5. Project Automation Flow (Conceptual Diagram)
 
 ```text
-           +-------------------------+
++--------------------------------------------------+
            |     Puppet Apply        |
            +-------------------------+
                        |
                        v
            +-------------------------+
-           |  role::jenkins_controller |
+           | role::jenkins_controller|
            +-------------------------+
                        |
                        v
@@ -124,13 +124,17 @@ control-repo/
            |     profile::jenkins    |
            +-------------------------+
                        |
-   +-----------+-----------+-----------+
-   |           |           |           |
-   v           v           v           v
- OS Checks   Packages    Jenkins Repo  systemd Override
-                                   |
-                                   v
-                            Jenkins on Port 8000
+   +-----------+-----------+-----------+------------+
+   |           |           |           |            |
+   v           v           v           v            v
+ OS Checks   Packages    Jenkins Repo  systemd     Firewall
+                                         Override   (Optional)
+                                                     |
+                                                     v
+                                           Port 8000 Open
+                                                     |
+                                                     v
+                                            Jenkins on Port 8000
 ```
 
 ***
