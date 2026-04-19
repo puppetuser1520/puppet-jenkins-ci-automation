@@ -416,7 +416,7 @@ Primary sources used:
 
 *   **Puppet official documentation**
     *   Idempotency concepts  
-        < https://help.puppet.com/pe/current/topics/understanding_idempotency.htm> [\[help.puppet.com\]]( https://help.puppet.com/pe/current/topics/understanding_idempotency.htm)
+        <https://help.puppet.com/pe/current/topics/understanding_idempotency.htm> [\[help.puppet.com\]]( https://help.puppet.com/pe/current/topics/understanding_idempotency.htm)
 
 No third‑party Puppet modules or copied community code were used.
 
