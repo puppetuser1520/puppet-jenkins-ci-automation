@@ -9,7 +9,7 @@ class profile::jenkins (
   Boolean $manage_ufw = false,
 
   # --- Packages ---
-  Array[String] $prereq_packages = ['ca-certificates','wget','curl','fontconfig','gnupg'],
+  Array[String] $prereq_packages = ['ca-certificates','wget','fontconfig','gnupg'],
   String $java_package           = 'openjdk-21-jre-headless',
 
   # --- APT key + repo (data driven) ---
@@ -158,44 +158,6 @@ class profile::jenkins (
     ],
   }
 
-  # ---------------------------------------------------------------------------
-  # Verify Jenkins service is active (only if systemctl exists)
-  # ---------------------------------------------------------------------------
-  exec { 'verify_jenkins_service_active':
-    command     => '/bin/systemctl is-active --quiet jenkins',
-    path        => ['/bin','/usr/bin'],
-    logoutput   => 'on_failure',
-    require     => Service['jenkins'],
-  }
-
-  # ---------------------------------------------------------------------------
-  # Verify Jenkins is listening on your configured port (8000)
-  # ---------------------------------------------------------------------------
-  exec { 'verify_jenkins_listening_port':
-    command     => "/usr/bin/ss -tulpn | /bin/grep -E ':(?:${http_port})\\b'",
-    path        => ['/usr/bin','/bin'],
-    logoutput   => 'on_failure',
-    refreshonly => true,
-    subscribe   => Service['jenkins'],
-  }
-
-  # ---------------------------------------------------------------------------
-  # Verify Jenkins HTTP endpoint responds locally
-  # ---------------------------------------------------------------------------
-  exec { 'verify_jenkins_http_health':
-    command   => "/usr/bin/curl -fsS http://127.0.0.1:${http_port}/login >/dev/null",
-    path      => ['/usr/bin','/bin'],
-    logoutput => 'on_failure',
-    require   => [Package['curl'], Service['jenkins']],
-  }
-
-  # ---------------------------------------------------------------------------
-  # Jenkins configured and expected to listen on port (8000)
-  # ---------------------------------------------------------------------------
-  notify { 'jenkins_profile_complete':
-    message => "Jenkins configured and expected to listen on port ${http_port}.",
-  }
-  
   # ---------------------------------------------------------------------------
   # OPTIONAL: UFW (ensure running + allow port) - idempotent
   # ---------------------------------------------------------------------------
