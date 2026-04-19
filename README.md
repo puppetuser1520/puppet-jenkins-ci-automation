@@ -45,36 +45,36 @@ Jenkins is explicitly configured to **listen on port 8000**, satisfying the requ
 
 Puppet Installation Steps (Ubuntu 22.04 – Jammy)
 
-### 1. Update the system package index:
+### 3.1. Update the system package index:
 ```bash
    sudo apt-get update
 ```
-### 2. Install required dependencies:
+### 3.2. Install required dependencies:
 ```bash
    sudo apt-get install -y wget ca-certificates gnupg lsb-release
 ```
-### 3. Download and install the official Puppet 7 repository package:
+### 3.3. Download and install the official Puppet 7 repository package:
 ```bash
    wget https://apt.puppet.com/puppet7-release-jammy.deb
    sudo dpkg -i puppet7-release-jammy.deb
 ```
-### 4. Refresh the package index after adding the Puppet repository:
+### 3.4. Refresh the package index after adding the Puppet repository:
 ```bash
    sudo apt-get update
 ```
-### 5. Install the Puppet Agent:
+### 3.5. Install the Puppet Agent:
 ```bash
    sudo apt-get install -y puppet-agent
 ```
-### 6. Add Puppet binaries to the system PATH:
+### 3.6. Add Puppet binaries to the system PATH:
 ```bash
    export PATH=$PATH:/opt/puppetlabs/bin
 ```
-### 7. Verify the installation:
+### 3.7. Verify the installation:
 ```bash
    puppet --version
 ```
-### 8. (Optional) Start and enable the Puppet service:
+### 3.8. (Optional) Start and enable the Puppet service:
 ```bash
    sudo systemctl start puppet
    sudo systemctl enable puppet
@@ -149,16 +149,16 @@ control-repo/
 
 ## 6. Project Execution Explanation
 
-1.  **Classification**
+### 6.1.  **Classification**
     *   The node is assigned `role::jenkins_controller` from `site.pp`.
 
-2.  **Profile execution**
+### 6.2.  **Profile execution**
     *   `profile::jenkins` installs prerequisites and Java.
     *   Jenkins APT repository and signing key are configured.
     *   Jenkins package is installed.
     *   A **systemd drop‑in override** file is created to set `JENKINS_PORT=8000`.
 
-3.  **Idempotency**
+### 6.3.  **Idempotency**
     *   `exec` resources are guarded with `creates`, `unless`, or `refreshonly`.
     *   `systemctl daemon-reload` and Jenkins restarts occur **only when configs change**.
     *   Re‑running Puppet produces **no redundant actions**.
@@ -172,19 +172,19 @@ Apply Puppet Configuration (Execution Step)
 
 After installing Puppet and ensuring all manifests, modules, and Hiera data are in place, apply the Puppet configuration using the following command:
 
-### a) Cloning the project repository into the local system
+### 7.1 Cloning the project repository into the local system
 
 ```bash
 git clone https://github.com/puppetuser1520/puppet-jenkins-ci-automation.git
 ```
 ![Please refer the execution result here](docs/images/gitclone_puppet_project_result.png)
 
-### b) Copy the Cloned Project into puppet standard code path
+### 7.2 Copy the Cloned Project into puppet standard code path
 
 ```bash
 sudo cp -r $HOME/puppet-jenkins-ci-automation/control-repo /etc/puppetlabs/code/environments/production/
 ```
-### c) Execute the puppet apply command 
+### 7.3 Execute the puppet apply command 
 
 ```bash
 sudo /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp \
@@ -198,19 +198,19 @@ This command applies the production environment configuration by:
 - Loading Hiera data from hiera.yaml
 - Resolving custom modules from the site-modules directory
 
-## a) Project execution result on Ubuntu-22.04 (jammy)
+### 7.3.1 Project execution result on Ubuntu-22.04 (jammy)
 ![Please refer the execution result here](docs/images/puppet_apply_execution_result_ubuntu-22.04.png)
 
-## a) Project execution result on Ubuntu-24.04 (noble)
+### 7.3.2 Project execution result on Ubuntu-24.04 (noble)
 ![Please refer the execution result here](docs/images/puppet_apply_execution_result_ubuntu-24.04.png)
 
-## a) Project execution result on RedHat-10.1 (Coughlan)
+### 7.3.3 Project execution result on RedHat-10.1 (Coughlan)
 ![Please refer the execution result here](docs/images/puppet_apply_execution_result_redhat_10.1.png)
 
 ## 8. VERIFICATION STEPS
 
 
-### 1. Verify Jenkins service status:
+### 8.1. Verify Jenkins service status:
 
 ```bash
    sudo systemctl status jenkins
@@ -219,7 +219,7 @@ This command applies the production environment configuration by:
 
   ![Jenkins Service Status Verification](docs/images/jenkins_service_status_check.png)
 
-### 2. Confirm Jenkins is listening on port 8000:
+### 8.2. Confirm Jenkins is listening on port 8000:
 
 ```bash
    sudo ss -tulpn | grep 8000
@@ -229,19 +229,19 @@ This command applies the production environment configuration by:
 
 ![Jenkins listening on port 8000 verification](docs/images/listening_port_verification_8000.png)
 
-### 3. Access Jenkins via web browser:
+### 8.3. Access Jenkins via web browser:
    http://server-ip:8000
 
 ![Jenkins UI verification on port 8000](docs/images/verification_jenkins_ui_with_port_8000.png)
 
-### 4. Retrieve the initial Jenkins admin password:
+### 8.4. Retrieve the initial Jenkins admin password:
 
 ```bash
    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 ![Get Jenkins Initial Admin Password](docs/images/get_jenkins_initial_password.png)
 
-### 5. Log in to the Jenkins UI using the initial admin password to complete setup.
+### 8.5. Log in to the Jenkins UI using the initial admin password to complete setup.
    
 ![Unlock Jenkins Using Admin Password](docs/images/unlock_jenkins_ui_with_admin_password.png)
 
@@ -255,9 +255,9 @@ Jenkins is successfully installed, running, and accessible via the web interface
 
 ## 9. Required Question Answers
 
-### a) Most difficult hurdle
+### 9.1 Most difficult hurdle
 
-### 1) **Jenkins Java Version Compatibility Changed**
+### 9.1.1 **Jenkins Java Version Compatibility Changed**
 
 **What happened**
 
@@ -277,7 +277,7 @@ Jenkins is successfully installed, running, and accessible via the web interface
 
 ***
 
-### 2) **`puppet apply` Does Not Auto‑Determine Node Identity**
+### 9.1.2 **`puppet apply` Does Not Auto‑Determine Node Identity**
 
 **What happened**
 
@@ -297,7 +297,7 @@ Jenkins is successfully installed, running, and accessible via the web interface
 
 ***
 
-### 3) **Systemd Back‑off Masked Subsequent Fixes**
+### 9.1.3 **Systemd Back‑off Masked Subsequent Fixes**
 
 **What happened**
 
@@ -321,7 +321,7 @@ sudo systemctl reset-failed jenkins
 
 ***
 
-### 4) **Modern APT Key Handling Is More Complex**
+### 9.1.4 **Modern APT Key Handling Is More Complex**
 
 **What happened**
 
@@ -342,7 +342,7 @@ sudo systemctl reset-failed jenkins
 
 ***
 
-### 5) **Order and Notification Chains Are Critical**
+### 9.1.5 **Order and Notification Chains Are Critical**
 
 **What happened**
 
@@ -368,7 +368,7 @@ sudo systemctl reset-failed jenkins
 
 ***
 
-### 6) **Port Configuration Requires systemd Overrides**
+### 9.1.6 **Port Configuration Requires systemd Overrides**
 
 **What happened**
 
@@ -387,7 +387,7 @@ sudo systemctl reset-failed jenkins
 
 ***
 
-### 7) **Separation of Roles & Profiles Requires Discipline**
+### 9.1.7 **Separation of Roles & Profiles Requires Discipline**
 
 **What happened**
 
@@ -405,7 +405,7 @@ sudo systemctl reset-failed jenkins
 
 ***
 
-### b) Why requirement (f) is important
+### 9.2 Why requirement (f) is important
 
 Requirement (f) enforces **idempotency**, which is fundamental to configuration management.  
 Without idempotency:
@@ -421,11 +421,11 @@ Official Puppet documentation on idempotency:
 
 ***
 
-### c) Sources of information
+### 9.3 Sources of information
 
 Primary sources used:
 
-*   **Jenkins official documentation**
+### 9.3.1 **Jenkins official documentation**
 
     *   Jenkins Java Version Compatibility Changed
         <https://www.jenkins.io/doc/book/platform-information/support-policy-java/> [\[jenkins.io\]](https://www.jenkins.io/doc/book/platform-information/support-policy-java)
@@ -434,7 +434,7 @@ Primary sources used:
     *   repository key rotation blog  
         <https://www.jenkins.io/blog/2025/12/23/repository-signing-keys-changing/> [\[jenkins.io\]](https://www.jenkins.io/blog/2025/12/23/repository-signing-keys-changing/)
 
-*   **Puppet official documentation**
+### 9.3.2 **Puppet official documentation**
     *   Idempotency concepts  
         <https://help.puppet.com/pe/current/topics/understanding_idempotency.htm> [\[help.puppet.com\]]( https://help.puppet.com/pe/current/topics/understanding_idempotency.htm)
 
@@ -442,7 +442,7 @@ No third‑party Puppet modules or copied community code were used.
 
 ***
 
-### d) What automation means and why it matters
+### 9.4 What automation means and why it matters
 
 Automation means defining infrastructure and system configuration as **code that expresses intent**, not imperative steps.  
 It enables:
