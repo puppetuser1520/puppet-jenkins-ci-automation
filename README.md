@@ -171,7 +171,15 @@ sudo /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/producti
   --hiera_config /etc/puppetlabs/code/environments/production/hiera.yaml \
   --modulepath /etc/puppetlabs/code/environments/production/site-modules
 ```
-![Please refer the execution result here](docs/images/puppet_apply_execution_result.png)
+
+## a) Project execution result on Ubuntu-22.04 (jammy)
+![Please refer the execution result here](docs/images/puppet_apply_execution_result_ubuntu-22.04.png)
+
+## a) Project execution result on Ubuntu-24.04 (noble)
+![Please refer the execution result here](docs/images/puppet_apply_execution_result_ubuntu-24.04.png)
+
+## a) Project execution result on RedHat-10.1 (Coughlan)
+![Please refer the execution result here](docs/images/puppet_apply_execution_result_redhat_10.1.png)
 
 This command applies the production environment configuration by:
 - Executing the main site manifest (site.pp)
