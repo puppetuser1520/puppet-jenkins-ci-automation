@@ -156,6 +156,7 @@ control-repo/
 
 ## 7. Project Execution Step
 
+```bash
 Apply Puppet Configuration (Execution Step)
 
 After installing Puppet and ensuring all manifests, modules, and Hiera data are in place, apply the Puppet configuration using the following command:
@@ -171,19 +172,21 @@ This command applies the production environment configuration by:
 - Loading Hiera data from hiera.yaml
 - Resolving custom modules from the site-modules directory
 
+```
 ## 8. VERIFICATION STEPS
 
+```bash
 1. Verify Jenkins service status:
    sudo systemctl status jenkins
    (Service should be shown as "active (running)")
 
-2. Confirm Jenkins is listening on port 8080:
-   sudo ss -tulpn | grep 8080
+2. Confirm Jenkins is listening on port 8000:
+   sudo ss -tulpn | grep 8000
    or
-   sudo netstat -tulpn | grep 8080
+   sudo netstat -tulpn | grep 8000
 
 3. Access Jenkins via web browser:
-   http://<server-ip>:8080
+   http://<server-ip>:8000
 
 4. Retrieve the initial Jenkins admin password:
    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
@@ -194,6 +197,7 @@ RESULT
 
 Jenkins is successfully installed, running, and accessible via the web interface.
 
+```
 ***
 
 ## 9. Required Question Answers
