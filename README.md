@@ -166,7 +166,7 @@ sudo /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/producti
   --hiera_config /etc/puppetlabs/code/environments/production/hiera.yaml \
   --modulepath /etc/puppetlabs/code/environments/production/site-modules
 ```
-  [Please refer the execution result here](docs/images/puppet_apply_execution_result.png)
+![Please refer the execution result here](docs/images/puppet_apply_execution_result.png)
 
 This command applies the production environment configuration by:
 - Executing the main site manifest (site.pp)
@@ -174,7 +174,6 @@ This command applies the production environment configuration by:
 - Loading Hiera data from hiera.yaml
 - Resolving custom modules from the site-modules directory
 
-```
 ## 8. VERIFICATION STEPS
 
 
@@ -213,14 +212,12 @@ This command applies the production environment configuration by:
 
 ![Jenkins Successful Login Page](docs/images/jenkins_successful_login_page.png)
 
-
 5. Log in to the Jenkins UI using the initial admin password to complete setup.
 
 RESULT
 
 Jenkins is successfully installed, running, and accessible via the web interface.
 
-```
 ***
 
 ## 9. Required Question Answers
