@@ -1,0 +1,53 @@
+# ------------------------------------------------------------
+# Puppet / Ruby artifacts
+# ------------------------------------------------------------
+*.rbc
+*.lock
+*.log
+.bundle/
+vendor/
+pkg/
+tmp/
+tmp/*
+.rspec
+coverage/
+.last_run_summary
+Puppetfile.lock
+
+# Bolt / Puppet operational files
+.inventory.yaml
+.plan_cache/
+.task_cache/
+.cache/
+
+# ------------------------------------------------------------
+# Editor / IDE files
+# ------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.bak
+.DS_Store
+Thumbs.db
+
+# ------------------------------------------------------------
+# OS / temporary files
+# ------------------------------------------------------------
+*.tmp
+*.pid
+*.pid.lock
+
+# ------------------------------------------------------------
+# Sensitive files (never commit)
+# ------------------------------------------------------------
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+*.env
+secrets.yaml
+private/
+credentials/
