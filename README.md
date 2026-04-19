@@ -42,32 +42,40 @@ Jenkins is explicitly configured to **listen on port 8000**, satisfying the requ
 
 ## 3. Puppet Installation Steps (Ubuntu 22.04)
 
-```bash
+
 Puppet Installation Steps (Ubuntu 22.04 – Jammy)
 
-1. Update the system package index:
+### 1. Update the system package index:
+```bash
    sudo apt-get update
-
-2. Install required dependencies:
+```
+### 2. Install required dependencies:
+```bash
    sudo apt-get install -y wget ca-certificates gnupg lsb-release
-
-3. Download and install the official Puppet 7 repository package:
+```
+### 3. Download and install the official Puppet 7 repository package:
+```bash
    wget https://apt.puppet.com/puppet7-release-jammy.deb
    sudo dpkg -i puppet7-release-jammy.deb
-
-4. Refresh the package index after adding the Puppet repository:
+```
+### 4. Refresh the package index after adding the Puppet repository:
+```bash
    sudo apt-get update
-
-5. Install the Puppet Agent:
+```
+### 5. Install the Puppet Agent:
+```bash
    sudo apt-get install -y puppet-agent
-
-6. Add Puppet binaries to the system PATH:
+```
+### 6. Add Puppet binaries to the system PATH:
+```bash
    export PATH=$PATH:/opt/puppetlabs/bin
-
-7. Verify the installation:
+```
+### 7. Verify the installation:
+```bash
    puppet --version
-
-8. (Optional) Start and enable the Puppet service:
+```
+### 8. (Optional) Start and enable the Puppet service:
+```bash
    sudo systemctl start puppet
    sudo systemctl enable puppet
 ```
