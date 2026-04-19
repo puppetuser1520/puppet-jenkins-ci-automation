@@ -202,7 +202,7 @@ This command applies the production environment configuration by:
 ## 8. VERIFICATION STEPS
 
 
-1. Verify Jenkins service status:
+### 1. Verify Jenkins service status:
 
 ```bash
    sudo systemctl status jenkins
@@ -211,7 +211,7 @@ This command applies the production environment configuration by:
 
   ![Jenkins Service Status Verification](docs/images/jenkins_service_status_check.png)
 
-2. Confirm Jenkins is listening on port 8000:
+### 2. Confirm Jenkins is listening on port 8000:
 
 ```bash
    sudo ss -tulpn | grep 8000
@@ -221,25 +221,25 @@ This command applies the production environment configuration by:
 
 ![Jenkins listening on port 8000 verification](docs/images/listening_port_verification_8000.png)
 
-3. Access Jenkins via web browser:
+### 3. Access Jenkins via web browser:
    http://<server-ip>:8000
 
 ![Jenkins UI verification on port 8000](docs/images/verification_jenkins_ui_with_port_8000.png)
 
-4. Retrieve the initial Jenkins admin password:
+### 4. Retrieve the initial Jenkins admin password:
 
 ```bash
    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 ![Get Jenkins Initial Admin Password](docs/images/get_jenkins_initial_password.png)
 
-5. Log in to the Jenkins UI using the initial admin password to complete setup.
+### 5. Log in to the Jenkins UI using the initial admin password to complete setup.
    
 ![Unlock Jenkins Using Admin Password](docs/images/unlock_jenkins_ui_with_admin_password.png)
 
 ![Jenkins Successful Login Page](docs/images/jenkins_successful_login_page.png)
 
-RESULT
+## RESULT
 
 Jenkins is successfully installed, running, and accessible via the web interface.
 
