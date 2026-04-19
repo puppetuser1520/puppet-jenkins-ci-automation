@@ -172,19 +172,19 @@ Apply Puppet Configuration (Execution Step)
 
 After installing Puppet and ensuring all manifests, modules, and Hiera data are in place, apply the Puppet configuration using the following command:
 
-### 7.1 Cloning the project repository into the local system
+### 7.1. Cloning the project repository into the local system
 
 ```bash
 git clone https://github.com/puppetuser1520/puppet-jenkins-ci-automation.git
 ```
 ![Please refer the execution result here](docs/images/gitclone_puppet_project_result.png)
 
-### 7.2 Copy the Cloned Project into puppet standard code path
+### 7.2. Copy the Cloned Project into puppet standard code path
 
 ```bash
 sudo cp -r $HOME/puppet-jenkins-ci-automation/control-repo /etc/puppetlabs/code/environments/production/
 ```
-### 7.3 Execute the puppet apply command 
+### 7.3. Execute the puppet apply command 
 
 ```bash
 sudo /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp \
@@ -198,13 +198,13 @@ This command applies the production environment configuration by:
 - Loading Hiera data from hiera.yaml
 - Resolving custom modules from the site-modules directory
 
-### 7.3.1 Project execution result on Ubuntu-22.04 (jammy)
+### 7.3.1. Project execution result on Ubuntu-22.04 (jammy)
 ![Please refer the execution result here](docs/images/puppet_apply_execution_result_ubuntu-22.04.png)
 
-### 7.3.2 Project execution result on Ubuntu-24.04 (noble)
+### 7.3.2. Project execution result on Ubuntu-24.04 (noble)
 ![Please refer the execution result here](docs/images/puppet_apply_execution_result_ubuntu-24.04.png)
 
-### 7.3.3 Project execution result on RedHat-10.1 (Coughlan)
+### 7.3.3. Project execution result on RedHat-10.1 (Coughlan)
 ![Please refer the execution result here](docs/images/puppet_apply_execution_result_redhat_10.1.png)
 
 ## 8. VERIFICATION STEPS
@@ -255,9 +255,9 @@ Jenkins is successfully installed, running, and accessible via the web interface
 
 ## 9. Required Question Answers
 
-### 9.1 Most difficult hurdle
+### 9.1. Most difficult hurdle
 
-### 9.1.1 **Jenkins Java Version Compatibility Changed**
+### 9.1.1. **Jenkins Java Version Compatibility Changed**
 
 **What happened**
 
@@ -277,7 +277,7 @@ Jenkins is successfully installed, running, and accessible via the web interface
 
 ***
 
-### 9.1.2 **`puppet apply` Does Not Auto‑Determine Node Identity**
+### 9.1.2. **`puppet apply` Does Not Auto‑Determine Node Identity**
 
 **What happened**
 
@@ -297,7 +297,7 @@ Jenkins is successfully installed, running, and accessible via the web interface
 
 ***
 
-### 9.1.3 **Systemd Back‑off Masked Subsequent Fixes**
+### 9.1.3. **Systemd Back‑off Masked Subsequent Fixes**
 
 **What happened**
 
@@ -321,7 +321,7 @@ sudo systemctl reset-failed jenkins
 
 ***
 
-### 9.1.4 **Modern APT Key Handling Is More Complex**
+### 9.1.4. **Modern APT Key Handling Is More Complex**
 
 **What happened**
 
@@ -342,7 +342,7 @@ sudo systemctl reset-failed jenkins
 
 ***
 
-### 9.1.5 **Order and Notification Chains Are Critical**
+### 9.1.5. **Order and Notification Chains Are Critical**
 
 **What happened**
 
@@ -368,7 +368,7 @@ sudo systemctl reset-failed jenkins
 
 ***
 
-### 9.1.6 **Port Configuration Requires systemd Overrides**
+### 9.1.6. **Port Configuration Requires systemd Overrides**
 
 **What happened**
 
@@ -387,7 +387,7 @@ sudo systemctl reset-failed jenkins
 
 ***
 
-### 9.1.7 **Separation of Roles & Profiles Requires Discipline**
+### 9.1.7. **Separation of Roles & Profiles Requires Discipline**
 
 **What happened**
 
@@ -405,7 +405,7 @@ sudo systemctl reset-failed jenkins
 
 ***
 
-### 9.2 Why requirement (f) is important
+### 9.2. Why requirement (f) is important
 
 Requirement (f) enforces **idempotency**, which is fundamental to configuration management.  
 Without idempotency:
@@ -421,11 +421,11 @@ Official Puppet documentation on idempotency:
 
 ***
 
-### 9.3 Sources of information
+### 9.3. Sources of information
 
 Primary sources used:
 
-### 9.3.1 **Jenkins official documentation**
+### 9.3.1. **Jenkins official documentation**
 
     *   Jenkins Java Version Compatibility Changed
         <https://www.jenkins.io/doc/book/platform-information/support-policy-java/> [\[jenkins.io\]](https://www.jenkins.io/doc/book/platform-information/support-policy-java)
@@ -434,7 +434,7 @@ Primary sources used:
     *   repository key rotation blog  
         <https://www.jenkins.io/blog/2025/12/23/repository-signing-keys-changing/> [\[jenkins.io\]](https://www.jenkins.io/blog/2025/12/23/repository-signing-keys-changing/)
 
-### 9.3.2 **Puppet official documentation**
+### 9.3.2. **Puppet official documentation**
     *   Idempotency concepts  
         <https://help.puppet.com/pe/current/topics/understanding_idempotency.htm> [\[help.puppet.com\]]( https://help.puppet.com/pe/current/topics/understanding_idempotency.htm)
 
@@ -442,7 +442,7 @@ No third‑party Puppet modules or copied community code were used.
 
 ***
 
-### 9.4 What automation means and why it matters
+### 9.4. What automation means and why it matters
 
 Automation means defining infrastructure and system configuration as **code that expresses intent**, not imperative steps.  
 It enables:
