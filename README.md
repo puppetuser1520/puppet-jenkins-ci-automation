@@ -222,7 +222,7 @@ This command applies the production environment configuration by:
 ![Jenkins listening on port 8000 verification](docs/images/listening_port_verification_8000.png)
 
 ### 3. Access Jenkins via web browser:
-   http://<server-ip>:8000
+   http://server-ip:8000
 
 ![Jenkins UI verification on port 8000](docs/images/verification_jenkins_ui_with_port_8000.png)
 
