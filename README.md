@@ -177,41 +177,76 @@ This command applies the production environment configuration by:
 ```
 ## 8. VERIFICATION STEPS
 
+
+***
+
+### Jenkins Verification Steps
+
+#### 1. Verify Jenkins service status
+
 ```bash
-1. Verify Jenkins service status:
-   sudo systemctl status jenkins
-   (Service should be shown as "active (running)")
+sudo systemctl status jenkins
+```
 
-  ![Please refer the execution result here](docs/images/jenkins_service_status_check.png)
+**Expected result:**  
+Service should be shown as **active (running)**.
 
-2. Confirm Jenkins is listening on port 8000:
-   sudo ss -tulpn | grep 8000
-   or
-   sudo netstat -tulpn | grep 8000
+docs/images/jenkins\_service\_status\_check.png
 
-  ![Please refer the execution result here](docs/images/listening_port_verification_8000.png)
+***
 
-3. Access Jenkins via web browser:
-   http://<server-ip>:8000
+#### 2. Confirm Jenkins is listening on port 8000
 
-  ![Please refer the execution result here](docs/images/verification_jenkins_ui_with_port_8000.png)
+```bash
+sudo ss -tulpn | grep 8000
+# or
+sudo netstat -tulpn | grep 8000
+```
+**Expected result:** 
 
-4. Retrieve the initial Jenkins admin password:
-   sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+docs/images/listening\_port\_verification\_8000.png
 
-   ![Please refer the execution result here](docs/images/get_jenkins_initial_password.png)
+***
 
-   ![Please refer the execution result here](docs/images/unlock_jenkins_ui_with_admin_password.png)
+#### 3. Access Jenkins via web browser
 
-   ![Please refer the execution result here](docs/images/jenkins_successful_login_page.png)
+```text
+http://<server-ip>:8000
+```
 
-5. Log in to the Jenkins UI using the initial admin password to complete setup.
+**Expected result:** 
 
-RESULT
+docs/images/verification\_jenkins\_ui\_with\_port\_8000.png
+
+***
+
+#### 4. Retrieve the initial Jenkins admin password
+
+```bash
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+**Expected result:** 
+
+docs/images/get\_jenkins\_initial\_password.png
+
+docs/images/unlock\_jenkins\_ui\_with\_admin\_password.png
+
+docs/images/jenkins\_successful\_login\_page.png
+
+***
+
+#### 5. Complete Jenkins setup
+
+Log in to the Jenkins UI using the initial admin password and complete the setup wizard.
+
+***
+
+### Result
 
 Jenkins is successfully installed, running, and accessible via the web interface.
 
-```
+
 ***
 
 ## 9. Required Question Answers
