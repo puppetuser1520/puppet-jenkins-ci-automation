@@ -233,11 +233,11 @@ This command applies the production environment configuration by:
 ```
 ![Get Jenkins Initial Admin Password](docs/images/get_jenkins_initial_password.png)
 
+5. Log in to the Jenkins UI using the initial admin password to complete setup.
+   
 ![Unlock Jenkins Using Admin Password](docs/images/unlock_jenkins_ui_with_admin_password.png)
 
 ![Jenkins Successful Login Page](docs/images/jenkins_successful_login_page.png)
-
-5. Log in to the Jenkins UI using the initial admin password to complete setup.
 
 RESULT
 
