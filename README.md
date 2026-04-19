@@ -156,16 +156,16 @@ control-repo/
 
 ## 7. Project Execution Step
 
-```bash
 Apply Puppet Configuration (Execution Step)
 
 After installing Puppet and ensuring all manifests, modules, and Hiera data are in place, apply the Puppet configuration using the following command:
 
+```bash
 sudo /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp \
   --environment production \
   --hiera_config /etc/puppetlabs/code/environments/production/hiera.yaml \
   --modulepath /etc/puppetlabs/code/environments/production/site-modules
-
+```
   [Please refer the execution result here](docs/images/puppet_apply_execution_result.png)
 
 This command applies the production environment configuration by:
@@ -178,75 +178,49 @@ This command applies the production environment configuration by:
 ## 8. VERIFICATION STEPS
 
 
-***
-
-### Jenkins Verification Steps
-
-#### 1. Verify Jenkins service status
+1. Verify Jenkins service status:
 
 ```bash
-sudo systemctl status jenkins
+   sudo systemctl status jenkins
 ```
+   (Service should be shown as "active (running)")
 
-**Expected result:**  
-Service should be shown as **active (running)**.
+  ![Jenkins Service Status Verification](docs/images/jenkins_service_status_check.png)
 
-docs/images/jenkins\_service\_status\_check.png
-
-***
-
-#### 2. Confirm Jenkins is listening on port 8000
+2. Confirm Jenkins is listening on port 8000:
 
 ```bash
-sudo ss -tulpn | grep 8000
-# or
-sudo netstat -tulpn | grep 8000
-```
-**Expected result:** 
-
-docs/images/listening\_port\_verification\_8000.png
-
-***
-
-#### 3. Access Jenkins via web browser
-
-```text
-http://<server-ip>:8000
+   sudo ss -tulpn | grep 8000
+   or
+   sudo netstat -tulpn | grep 8000
 ```
 
-**Expected result:** 
+![Jenkins listening on port 8000 verification](docs/images/listening_port_verification_8000.png)
 
-docs/images/verification\_jenkins\_ui\_with\_port\_8000.png
+3. Access Jenkins via web browser:
+   http://<server-ip>:8000
 
-***
+![Jenkins UI verification on port 8000](docs/images/verification_jenkins_ui_with_port_8000.png)
 
-#### 4. Retrieve the initial Jenkins admin password
+4. Retrieve the initial Jenkins admin password:
 
 ```bash
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+   sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
+![Get Jenkins Initial Admin Password](docs/images/get_jenkins_initial_password.png)
 
-**Expected result:** 
+![Unlock Jenkins Using Admin Password](docs/images/unlock_jenkins_ui_with_admin_password.png)
 
-docs/images/get\_jenkins\_initial\_password.png
+![Jenkins Successful Login Page](docs/images/jenkins_successful_login_page.png)
 
-docs/images/unlock\_jenkins\_ui\_with\_admin\_password.png
 
-docs/images/jenkins\_successful\_login\_page.png
+5. Log in to the Jenkins UI using the initial admin password to complete setup.
 
-***
-
-#### 5. Complete Jenkins setup
-
-Log in to the Jenkins UI using the initial admin password and complete the setup wizard.
-
-***
-
-### Result
+RESULT
 
 Jenkins is successfully installed, running, and accessible via the web interface.
 
-
+```
 ***
 
 ## 9. Required Question Answers
