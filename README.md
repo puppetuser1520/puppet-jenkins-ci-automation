@@ -406,13 +406,14 @@ Official Puppet documentation on idempotency:
 Primary sources used:
 
 *   **Jenkins official documentation**
+
     *   Jenkins Java Version Compatibility Changed
-        <https://www.jenkins.io/doc/book/platform-information/support-policy-java/>[\[jenkins.io\]](https://www.jenkins.io/doc/book/platform-information/support-policy-java)
+        <https://www.jenkins.io/doc/book/platform-information/support-policy-java/> [\[jenkins.io\]](https://www.jenkins.io/doc/book/platform-information/support-policy-java)
     *   systemd service overrides  
         <https://www.jenkins.io/doc/book/system-administration/systemd-services/> [\[jenkins.io\]](https://www.jenkins.io/doc/book/system-administration/systemd-services/)
     *   repository key rotation blog  
         <https://www.jenkins.io/blog/2025/12/23/repository-signing-keys-changing/> [\[jenkins.io\]](https://www.jenkins.io/blog/2025/12/23/repository-signing-keys-changing/)
-        
+
 *   **Puppet official documentation**
     *   Idempotency concepts  
         < https://help.puppet.com/pe/current/topics/understanding_idempotency.htm> [\[help.puppet.com\]]( https://help.puppet.com/pe/current/topics/understanding_idempotency.htm)
