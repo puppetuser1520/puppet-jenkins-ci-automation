@@ -149,16 +149,16 @@ control-repo/
 
 ## 6. Project Execution Explanation
 
-### 6.1.  **Classification**
+*  **Classification**
     *   The node is assigned `role::jenkins_controller` from `site.pp`.
 
-### 6.2.  **Profile execution**
+*  **Profile execution**
     *   `profile::jenkins` installs prerequisites and Java.
     *   Jenkins APT repository and signing key are configured.
     *   Jenkins package is installed.
     *   A **systemd drop‑in override** file is created to set `JENKINS_PORT=8000`.
 
-### 6.3.  **Idempotency**
+*  **Idempotency**
     *   `exec` resources are guarded with `creates`, `unless`, or `refreshonly`.
     *   `systemctl daemon-reload` and Jenkins restarts occur **only when configs change**.
     *   Re‑running Puppet produces **no redundant actions**.
