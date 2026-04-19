@@ -166,6 +166,8 @@ sudo /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/producti
   --hiera_config /etc/puppetlabs/code/environments/production/hiera.yaml \
   --modulepath /etc/puppetlabs/code/environments/production/site-modules
 
+  [Please refer the execution result here](docs/puppet_apply_execution_result.png)
+
 This command applies the production environment configuration by:
 - Executing the main site manifest (site.pp)
 - Using the production environment
@@ -180,16 +182,28 @@ This command applies the production environment configuration by:
    sudo systemctl status jenkins
    (Service should be shown as "active (running)")
 
+  [Please refer the execution result here](docs/jenkins_service_status_check.png)
+
 2. Confirm Jenkins is listening on port 8000:
    sudo ss -tulpn | grep 8000
    or
    sudo netstat -tulpn | grep 8000
 
+  [Please refer the execution result here](docs/listening_port_verification_8000.png)
+
 3. Access Jenkins via web browser:
    http://<server-ip>:8000
 
+  [Please refer the execution result here](docs/verification_jenkins_ui_with_port_8000.png)
+
 4. Retrieve the initial Jenkins admin password:
    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+   [Please refer the execution result here](docs/get_jenkins_initial_password.png)
+
+   [Please refer the execution result here](docs/unlock_jenkins_ui_with_admin_password.png)
+
+   [Please refer the execution result here](docs/jenkins_successful_login_page.png)
 
 5. Log in to the Jenkins UI using the initial admin password to complete setup.
 
