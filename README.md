@@ -161,11 +161,11 @@ Apply Puppet Configuration (Execution Step)
 After installing Puppet and ensuring all manifests, modules, and Hiera data are in place, apply the Puppet configuration using the following command:
 
 ```bash
-Copy the Project source code into puppet standard code path
+### Copy the Project source code into puppet standard code path
 
 sudo cp -r <project path> /etc/puppetlabs/code/environments/production/
 
-Execute the puppet apply command
+### Execute the puppet apply command
 sudo /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp \
   --environment production \
   --hiera_config /etc/puppetlabs/code/environments/production/hiera.yaml \
